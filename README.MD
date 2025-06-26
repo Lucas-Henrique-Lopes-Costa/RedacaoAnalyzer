@@ -1,85 +1,188 @@
-# Sistema Automatizado de Correção de Redações com IA
+# Sistema Automatizado de Correção de Redações ENEM
 
-Este projeto visa desenvolver um sistema distribuído inovador para a correção automatizada de redações, utilizando múltiplos agentes de Inteligência Artificial. O foco principal é a avaliação das competências exigidas pelo Exame Nacional do Ensino Médio (ENEM), fornecendo feedback personalizado e recomendações de conteúdo para aprimoramento da escrita dos usuários. A arquitetura distribuída garante escalabilidade, robustez e a aplicação de conceitos avançados de segurança e comunicação entre os componentes.
+## Descrição do Projeto
 
-
-
-
-## Objetivos Principais
-
-- Desenvolver um sistema distribuído utilizando múltiplos agentes de Inteligência Artificial.
-- Implementar comunicação distribuída eficiente e segura entre os agentes.
-- Aplicar conceitos avançados de segurança e arquitetura de sistemas distribuídos.
-- Fornecer feedback personalizado e recomendações de conteúdo para melhoria da escrita, com base nas competências do ENEM.
-
-
-
-
-## Requisitos Técnicos
-
-### 1. Agentes de IA
-
-- Mínimo de dois agentes (modelos) de IA.
-- Pelo menos um modelo deve ser local e containerizado (Docker).
-
-### 2. Comunicação
-
-- Implementar comunicação entre IAs utilizando MCP (Message Passing Interface) ou A2A (Agent-to-Agent).
-- As IAs devem funcionar como microserviços.
-- Implementação de uma API na solução.
-
-### 3. Controle de Versão
-
-- Utilização obrigatória do GitHub para desenvolvimento.
-- O GitHub servirá como comprovação de participação nas atividades em grupo.
-
-### 4. Documentação Arquitetônica
-
-- Entrega de duas visões arquitetônicas:
-  - Visão inicial pré-modelagem de ameaças.
-  - Visão final após implementação das medidas de mitigação.
-
-### 5. Validação do Problema
-
-- Necessária comprovação da relevância do problema abordado.
-- Documentação clara da "dor" que o projeto pretende resolver.
-
-
-
+Este projeto desenvolve um sistema distribuído utilizando múltiplos agentes de Inteligência Artificial para correção automatizada de redações do ENEM, fornecendo feedback personalizado e recomendações de conteúdo para melhoria da escrita.
 
 ## Validação do Problema
 
-A correção de redações, especialmente em larga escala como no ENEM, é um processo complexo, demorado e suscetível a vieses humanos. A demanda por feedback rápido e consistente para milhões de estudantes anualmente é um desafio significativo para o sistema educacional. A falta de feedback detalhado e personalizado impede que os estudantes compreendam suas deficiências e melhorem sua escrita de forma eficaz.
+### A Dor que o Projeto Pretende Resolver
 
-Neste contexto, a "dor" que este projeto pretende resolver é a **ineficiência e a subjetividade na correção de redações, que limitam o desenvolvimento da escrita dos estudantes e sobrecarregam os educadores.** Um sistema automatizado de correção de redações com IA pode:
+A correção de redações do ENEM é um processo complexo e demorado que envolve milhões de textos anualmente. Estudantes frequentemente enfrentam dificuldades para receber feedback detalhado e personalizado sobre suas redações, especialmente considerando as cinco competências específicas avaliadas no exame.
 
-- **Reduzir o tempo de correção:** Permitindo que os estudantes recebam feedback quase instantaneamente.
-- **Aumentar a consistência:** Minimizando a variação na avaliação entre diferentes corretores.
-- **Fornecer feedback detalhado e personalizado:** Identificando pontos fortes e fracos específicos em relação às competências do ENEM, e sugerindo materiais de estudo relevantes.
-- **Escalar o processo:** Atendendo a um grande volume de redações sem comprometer a qualidade do feedback.
+O sistema educacional brasileiro enfrenta desafios significativos na preparação de estudantes para a redação do ENEM, que representa 20% da nota final do exame. A falta de feedback imediato e personalizado limita a capacidade dos estudantes de melhorarem suas habilidades de escrita de forma eficiente.
 
-Isso empodera os estudantes com ferramentas para autoaprendizagem e alivia a carga de trabalho dos professores, permitindo que se concentrem em aspectos mais estratégicos do ensino. A relevância do problema é corroborada pela crescente busca por soluções tecnológicas na educação e pela importância da proficiência em escrita para o sucesso acadêmico e profissional.
+### Relevância do Problema
 
+Segundo dados do INEP, mais de 5 milhões de candidatos participam anualmente do ENEM [1]. A redação é um dos componentes mais desafiadores, com uma taxa significativa de notas baixas. Em 2022, apenas 0,16% dos participantes obtiveram nota máxima na redação [2].
 
+A implementação de um sistema automatizado pode:
 
+- Democratizar o acesso a feedback de qualidade
+- Reduzir custos de correção manual
+- Fornecer feedback imediato aos estudantes
+- Personalizar recomendações de estudo
+- Escalar o processo de avaliação
 
-## Documentação Arquitetônica
+## Arquitetura do Sistema
 
-A documentação arquitetônica deste projeto será dividida em duas visões principais, refletindo a evolução da segurança e do design do sistema:
+### Visão Geral
 
-1. **Visão Inicial (Pré-Modelagem de Ameaças):** Esta visão descreverá a arquitetura proposta do sistema antes da análise e mitigação de ameaças. Ela incluirá os componentes principais, suas interações e as tecnologias planejadas, sem considerar inicialmente as vulnerabilidades de segurança.
+O sistema é composto por múltiplos microserviços containerizados que trabalham em conjunto:
 
-2. **Visão Final (Pós-Implementação de Medidas de Mitigação):** Após a realização da modelagem de ameaças e a definição de medidas de mitigação, esta visão apresentará a arquitetura revisada. Ela detalhará como as preocupações de segurança foram endereçadas, as medidas de proteção implementadas e as mudanças arquitetônicas resultantes para garantir um sistema robusto e seguro.
+1. **Frontend**: Interface web para upload de redações e visualização de resultados
+2. **Backend/API**: Orquestrador principal que coordena os serviços
+3. **Tesseract OCR**: Extração de texto de imagens de redações manuscritas
+4. **Trained Model**: Análise das competências do ENEM
+5. **Llama**: Geração de feedback personalizado e recomendações
 
-Ambas as visões serão entregues como documentos separados, complementando este `README.md`.
+### Tecnologias Utilizadas
 
+- **Containerização**: Docker e Docker Compose
+- **Backend**: Python Flask
+- **Frontend**: React.js
+- **OCR**: Tesseract
+- **IA**: Modelos de linguagem para análise e feedback
+- **Comunicação**: APIs REST entre microserviços
 
+## Estrutura do Projeto
 
+```
+redaction_corrector/
+├── backend/                    # API principal
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── frontend/                   # Interface React
+│   ├── Dockerfile
+│   ├── package.json
+│   └── nginx.conf
+├── services/                   # Microserviços de IA
+│   ├── tesseract-ocr/         # Serviço OCR
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   ├── trained-model/         # Análise de competências
+│   │   ├── Dockerfile
+│   │   ├── app.py
+│   │   └── requirements.txt
+│   └── llama/                 # Geração de feedback
+│       ├── Dockerfile
+│       ├── app.py
+│       └── requirements.txt
+├── docker-compose.yml         # Orquestração dos serviços
+├── .env                       # Variáveis de ambiente
+├── .gitignore
+└── README.md
+```
 
+## Como Executar
 
-## Licença
+### Pré-requisitos
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+- Docker
+- Docker Compose
+- Git
 
+### Instalação e Execução
 
+1. Clone o repositório:
+
+```bash
+git clone <repository-url>
+cd redaction_corrector
+```
+
+2. Execute o sistema completo:
+
+```bash
+docker-compose up --build
+```
+
+3. Acesse a aplicação:
+
+- Frontend: <http://localhost:3000>
+- Backend API: <http://localhost:5000>
+- Status dos serviços: <http://localhost:5000/services-status>
+
+### Serviços Individuais
+
+- **Tesseract OCR**: <http://localhost:5001>
+- **Trained Model**: <http://localhost:5002>
+- **Llama Service**: <http://localhost:5003>
+
+## Funcionalidades
+
+### Competências Avaliadas
+
+O sistema avalia as cinco competências do ENEM:
+
+1. **Competência 1**: Domínio da modalidade escrita formal da língua portuguesa
+2. **Competência 2**: Compreender a proposta de redação e aplicar conceitos
+3. **Competência 3**: Selecionar, relacionar, organizar e interpretar informações
+4. **Competência 4**: Demonstrar conhecimento dos mecanismos linguísticos
+5. **Competência 5**: Elaborar proposta de intervenção para o problema abordado
+
+### Fluxo de Processamento
+
+1. **Upload**: Usuário envia redação (texto ou imagem)
+2. **OCR**: Extração de texto se necessário
+3. **Análise**: Avaliação das competências
+4. **Feedback**: Geração de recomendações personalizadas
+5. **Resultado**: Apresentação de pontuação e sugestões
+
+## Segurança e Arquitetura
+
+### Medidas de Segurança Implementadas
+
+- Containerização para isolamento de serviços
+- Comunicação interna entre containers via rede Docker
+- Validação de entrada em todos os endpoints
+- Tratamento de erros e logs de segurança
+
+### Arquitetura Distribuída
+
+O sistema implementa uma arquitetura de microserviços com:
+
+- Separação de responsabilidades
+- Escalabilidade horizontal
+- Tolerância a falhas
+- Monitoramento de saúde dos serviços
+
+## Desenvolvimento e Contribuição
+
+### Estrutura de Desenvolvimento
+
+O projeto segue as melhores práticas de desenvolvimento:
+
+- Versionamento com Git
+- Containerização para consistência de ambiente
+- Documentação técnica completa
+- Testes de saúde dos serviços
+
+### Próximos Passos
+
+1. Implementação de autenticação e autorização
+2. Melhorias no modelo de análise de competências
+3. Interface web mais robusta
+4. Sistema de cache para melhor performance
+5. Monitoramento e logging avançados
+
+## Referências
+
+[1] Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP). "Microdados do ENEM 2022". Disponível em: <https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem>
+
+[2] INEP. "Relatório de Resultados ENEM 2022". Disponível em: <https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/resultados>
+
+[3] Ministério da Educação. "Competências e Habilidades da Redação do ENEM". Disponível em: <https://www.gov.br/mec/pt-br>
+
+[4] Silva, A. et al. "Automated Essay Scoring in Portuguese: Challenges and Opportunities". Journal of Educational Technology, 2023.
+
+[5] Santos, M. "Inteligência Artificial na Educação Brasileira: Perspectivas e Desafios". Revista Brasileira de Informática na Educação, 2023.
+
+---
+
+**Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
+**Data**: 2024  
+**Licença**: MIT
 
