@@ -202,3 +202,9 @@ O sistema de correção automatizada de redações do ENEM foi projetado seguind
 
 Esta documentação representa a visão inicial da arquitetura. Após a implementação das medidas de mitigação de segurança e melhorias identificadas na modelagem de ameaças, uma nova versão desta documentação será criada refletindo as mudanças implementadas.
 
+---
+
+**Versão**: 1.0 (Pré-Modelagem de Ameaças)  
+**Data**: Junho 2025  
+**Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
+

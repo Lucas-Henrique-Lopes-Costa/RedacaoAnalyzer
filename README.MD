@@ -183,6 +183,6 @@ O projeto segue as melhores práticas de desenvolvimento:
 ---
 
 **Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
-**Data**: 2024  
+**Data**: 2025
 **Licença**: MIT
 
