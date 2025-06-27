@@ -18,7 +18,7 @@ RUN npm run build
 
 # Usar nginx para servir arquivos estáticos
 FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
+COPY --from=0 /app/dist /usr/share/nginx/html
 
 # Copiar configuração customizada do nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf

@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useDropzone } from 'react-dropzone';
-import './index.css'; // Importar o CSS global
+import React, { useState } from "react";
+import axios from "axios";
+import { useDropzone } from "react-dropzone";
+import "./index.css"; // Importar o CSS global
 
 function App() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [file, setFile] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5004";
 
   const onDrop = (acceptedFiles) => {
     setFile(acceptedFiles[0]);
-    setText(''); // Limpa o texto se um arquivo for carregado
+    setText(""); // Limpa o texto se um arquivo for carregado
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      'image/jpeg': [],
-      'image/png': [],
-      'application/pdf': []
+      "image/jpeg": [],
+      "image/png": [],
+      "application/pdf": [],
     },
     multiple: false,
   });
@@ -35,25 +35,32 @@ function App() {
     const formData = new FormData();
 
     if (file) {
-      formData.append('image', file);
+      formData.append("image", file);
     } else if (text) {
-      formData.append('text', text);
+      formData.append("text", text);
     } else {
-      setError('Por favor, insira um texto ou faça upload de um arquivo.');
+      setError("Por favor, insira um texto ou faça upload de um arquivo.");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post(`${API_URL}/process-redaction`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${API_URL}/process-redaction`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setAnalysisResult(response.data);
     } catch (err) {
-      console.error('Erro ao processar redação:', err);
-      setError(err.response?.data?.error || 'Erro ao processar redação. Tente novamente.');
+      console.error("Erro ao processar redação:", err);
+      setError(
+        err.response?.data?.error ||
+          "Erro ao processar redação. Tente novamente."
+      );
     } finally {
       setLoading(false);
     }
@@ -75,11 +82,14 @@ function App() {
         ></textarea>
         <div {...getRootProps()} className="dropzone">
           <input {...getInputProps()} />
-          <p>Arraste e solte um arquivo aqui, ou clique para selecionar (JPG, PNG, PDF)</p>
+          <p>
+            Arraste e solte um arquivo aqui, ou clique para selecionar (JPG,
+            PNG, PDF)
+          </p>
           {file && <p>Arquivo selecionado: {file.name}</p>}
         </div>
         <button onClick={handleSubmit} disabled={loading}>
-          {loading ? 'Processando...' : 'Analisar Redação'}
+          {loading ? "Processando..." : "Analisar Redação"}
         </button>
         {error && <p className="error-message">{error}</p>}
       </div>
@@ -94,56 +104,96 @@ function App() {
 
           <h3>Análise de Competências:</h3>
           <div className="result-box">
-            {analysisResult.analysis && Object.keys(analysisResult.analysis).map((key) => (
-              <div key={key}>
-                <strong>{analysisResult.analysis[key].description || key}:</strong> {analysisResult.analysis[key].score} pontos
-                {analysisResult.analysis[key].errors && analysisResult.analysis[key].errors.length > 0 && (
-                  <p>Erros: {analysisResult.analysis[key].errors.join(', ')}</p>
-                )}
-                {analysisResult.analysis[key].feedback && analysisResult.analysis[key].feedback.length > 0 && (
-                  <p>Feedback: {analysisResult.analysis[key].feedback.join(', ')}</p>
-                )}
-              </div>
-            ))}
-            {analysisResult.analysis && analysisResult.analysis.overall_score && (
-              <p><strong>Pontuação Geral:</strong> {analysisResult.analysis.overall_score.toFixed(2)}/1000</p>
-            )}
+            {analysisResult.analysis &&
+              Object.keys(analysisResult.analysis).map((key) => (
+                <div key={key}>
+                  <strong>
+                    {analysisResult.analysis[key].description || key}:
+                  </strong>{" "}
+                  {analysisResult.analysis[key].score} pontos
+                  {analysisResult.analysis[key].errors &&
+                    analysisResult.analysis[key].errors.length > 0 && (
+                      <p>
+                        Erros: {analysisResult.analysis[key].errors.join(", ")}
+                      </p>
+                    )}
+                  {analysisResult.analysis[key].feedback &&
+                    analysisResult.analysis[key].feedback.length > 0 && (
+                      <p>
+                        Feedback:{" "}
+                        {analysisResult.analysis[key].feedback.join(", ")}
+                      </p>
+                    )}
+                </div>
+              ))}
+            {analysisResult.analysis &&
+              analysisResult.analysis.overall_score && (
+                <p>
+                  <strong>Pontuação Geral:</strong>{" "}
+                  {analysisResult.analysis.overall_score.toFixed(2)}/1000
+                </p>
+              )}
           </div>
 
           <h3>Feedback Personalizado:</h3>
           <div className="result-box">
-            {analysisResult.feedback && analysisResult.feedback.personalized_feedback && (
-              <>
-                <p><strong>{analysisResult.feedback.personalized_feedback.opening}</strong></p>
-                <p>{analysisResult.feedback.personalized_feedback.overall_impression}</p>
-                <h4>Análise Detalhada por Competência:</h4>
-                <ul>
-                  {analysisResult.feedback.personalized_feedback.detailed_analysis && analysisResult.feedback.personalized_feedback.detailed_analysis.map((comp, index) => (
-                    <li key={index}>Competência {comp.competency}: {comp.level} ({comp.score} pontos) - {comp.description}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {analysisResult.feedback && analysisResult.feedback.content_recommendations && analysisResult.feedback.content_recommendations.length > 0 && (
-              <>
-                <h4>Recomendações de Conteúdo:</h4>
-                <ul>
-                  {analysisResult.feedback.content_recommendations.map((rec, index) => (
-                    <li key={index}>{rec}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {analysisResult.feedback && analysisResult.feedback.improvement_suggestions && analysisResult.feedback.improvement_suggestions.length > 0 && (
-              <>
-                <h4>Sugestões de Melhoria:</h4>
-                <ul>
-                  {analysisResult.feedback.improvement_suggestions.map((sugg, index) => (
-                    <li key={index}>{sugg}</li>
-                  ))}
-                </ul>
-              </>
-            )}
+            {analysisResult.feedback &&
+              analysisResult.feedback.personalized_feedback && (
+                <>
+                  <p>
+                    <strong>
+                      {analysisResult.feedback.personalized_feedback.opening}
+                    </strong>
+                  </p>
+                  <p>
+                    {
+                      analysisResult.feedback.personalized_feedback
+                        .overall_impression
+                    }
+                  </p>
+                  <h4>Análise Detalhada por Competência:</h4>
+                  <ul>
+                    {analysisResult.feedback.personalized_feedback
+                      .detailed_analysis &&
+                      analysisResult.feedback.personalized_feedback.detailed_analysis.map(
+                        (comp, index) => (
+                          <li key={index}>
+                            Competência {comp.competency}: {comp.level} (
+                            {comp.score} pontos) - {comp.description}
+                          </li>
+                        )
+                      )}
+                  </ul>
+                </>
+              )}
+            {analysisResult.feedback &&
+              analysisResult.feedback.content_recommendations &&
+              analysisResult.feedback.content_recommendations.length > 0 && (
+                <>
+                  <h4>Recomendações de Conteúdo:</h4>
+                  <ul>
+                    {analysisResult.feedback.content_recommendations.map(
+                      (rec, index) => (
+                        <li key={index}>{rec}</li>
+                      )
+                    )}
+                  </ul>
+                </>
+              )}
+            {analysisResult.feedback &&
+              analysisResult.feedback.improvement_suggestions &&
+              analysisResult.feedback.improvement_suggestions.length > 0 && (
+                <>
+                  <h4>Sugestões de Melhoria:</h4>
+                  <ul>
+                    {analysisResult.feedback.improvement_suggestions.map(
+                      (sugg, index) => (
+                        <li key={index}>{sugg}</li>
+                      )
+                    )}
+                  </ul>
+                </>
+              )}
           </div>
         </div>
       )}
@@ -152,5 +202,3 @@ function App() {
 }
 
 export default App;
-
-
