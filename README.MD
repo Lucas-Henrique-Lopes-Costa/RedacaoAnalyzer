@@ -106,7 +106,7 @@ docker-compose up --build
 - **Tesseract OCR**: http://localhost:5001
 - **Trained Model**: http://localhost:5002
 - **Llama Service**: http://localhost:5003
-
+- 
 ## Funcionalidades
 
 ### Competências Avaliadas
@@ -177,5 +177,5 @@ O projeto segue as melhores práticas de desenvolvimento:
 ---
 
 **Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
+**Data**: 2025
 **Licença**: MIT
-

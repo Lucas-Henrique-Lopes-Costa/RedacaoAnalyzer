@@ -176,7 +176,6 @@ Esta documentação representa a visão inicial da arquitetura. Após a implemen
 
 ---
 
-**Versão**: 1.0 (Pré-Modelagem de Ameaças)  
-**Data**: Dezembro 2024  
-**Autor**: Equipe de Desenvolvimento
-
+**Versão**: 1.0 (Pré-Modelagem de Ameaças) 
+**Data**: Junho 2025  
+**Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
