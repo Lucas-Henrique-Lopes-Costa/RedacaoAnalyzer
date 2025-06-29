@@ -17,7 +17,6 @@ O sistema educacional brasileiro enfrenta desafios significativos na preparaçã
 Segundo dados do INEP, mais de 5 milhões de candidatos participam anualmente do ENEM [1]. A redação é um dos componentes mais desafiadores, com uma taxa significativa de notas baixas. Em 2022, apenas 0,16% dos participantes obtiveram nota máxima na redação [2].
 
 A implementação de um sistema automatizado pode:
-
 - Democratizar o acesso a feedback de qualidade
 - Reduzir custos de correção manual
 - Fornecer feedback imediato aos estudantes
@@ -87,30 +86,27 @@ redaction_corrector/
 ### Instalação e Execução
 
 1. Clone o repositório:
-
 ```bash
 git clone <repository-url>
 cd redaction_corrector
 ```
 
 2. Execute o sistema completo:
-
 ```bash
 docker-compose up --build
 ```
 
 3. Acesse a aplicação:
-
-- Frontend: <http://localhost:3000>
-- Backend API: <http://localhost:5000>
-- Status dos serviços: <http://localhost:5000/services-status>
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+- Status dos serviços: http://localhost:5000/services-status
 
 ### Serviços Individuais
 
-- **Tesseract OCR**: <http://localhost:5001>
-- **Trained Model**: <http://localhost:5002>
-- **Llama Service**: <http://localhost:5003>
-
+- **Tesseract OCR**: http://localhost:5001
+- **Trained Model**: http://localhost:5002
+- **Llama Service**: http://localhost:5003
+- 
 ## Funcionalidades
 
 ### Competências Avaliadas
@@ -143,7 +139,6 @@ O sistema avalia as cinco competências do ENEM:
 ### Arquitetura Distribuída
 
 O sistema implementa uma arquitetura de microserviços com:
-
 - Separação de responsabilidades
 - Escalabilidade horizontal
 - Tolerância a falhas
@@ -154,7 +149,6 @@ O sistema implementa uma arquitetura de microserviços com:
 ### Estrutura de Desenvolvimento
 
 O projeto segue as melhores práticas de desenvolvimento:
-
 - Versionamento com Git
 - Containerização para consistência de ambiente
 - Documentação técnica completa
@@ -170,11 +164,11 @@ O projeto segue as melhores práticas de desenvolvimento:
 
 ## Referências
 
-[1] Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP). "Microdados do ENEM 2022". Disponível em: <https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem>
+[1] Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP). "Microdados do ENEM 2022". Disponível em: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
 
-[2] INEP. "Relatório de Resultados ENEM 2022". Disponível em: <https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/resultados>
+[2] INEP. "Relatório de Resultados ENEM 2022". Disponível em: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/resultados
 
-[3] Ministério da Educação. "Competências e Habilidades da Redação do ENEM". Disponível em: <https://www.gov.br/mec/pt-br>
+[3] Ministério da Educação. "Competências e Habilidades da Redação do ENEM". Disponível em: https://www.gov.br/mec/pt-br
 
 [4] Silva, A. et al. "Automated Essay Scoring in Portuguese: Challenges and Opportunities". Journal of Educational Technology, 2023.
 
@@ -185,4 +179,3 @@ O projeto segue as melhores práticas de desenvolvimento:
 **Desenvolvido por**: Lucas, Pedro, Gustavo, Thiago
 **Data**: 2025
 **Licença**: MIT
-
